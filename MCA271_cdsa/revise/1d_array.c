@@ -48,7 +48,6 @@ int main(void){
     int n;
     printf("Enter size array: ");
     scanf("%d", &n);
-
     int *ptr = (int*)calloc(n, sizeof(int)); 
     int *res;
     ptr = getArray(ptr, n);
@@ -57,5 +56,7 @@ int main(void){
     printf("\nMax number: %d", displayingMaxNumber(ptr, n));
     res = sumAndAverage(ptr, n, res);
     printf("\nSum: %d, Average: %d", *res, *(res+1));
+
+    free(ptr);
     return 0;
 }

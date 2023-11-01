@@ -12,14 +12,14 @@
 # 	$(CC) $(SOURCES) $(HEADERS) -o $(TARGET)
 
 
-test:
-	gcc main.c greet.c -o test
+matrix:
+	gcc matrix.c hr.c -o matrix
 
 run: 
-	./test
+	./matrix
 
 clean:
-	rm -f test
+	rm -f matrix
 
 all:
 	test run clean

@@ -9,12 +9,14 @@ int** initialize_matrix(int** matrix, int row, int col){
 
     if( matrix == NULL){
         fprintf(stderr, "No space allocated for matrix");
+        abort();
     }
 
-    for(int i=0; i<col; i++){
-        matrix[i] = malloc(sizeof(int) * col);
+    for(int i=0; i<row; i++){
+        matrix[i] = (int *)malloc(sizeof(int) * col);
         if ( matrix[i] == NULL){
             fprintf(stderr, "Cannot allocate that much space.");
+            abort();
         }
     }
 
@@ -54,9 +56,26 @@ int main(int argc, char **argv){
     scanf("%d %d", &row, &col);
 
     int** matrix;
+    printf("%p",&matrix);
+
+
     matrix = initialize_matrix(matrix, row, col);
+    printf("\n\nAddress of matrix: %ld\n\n", sizeof(int*));
     get_matrix(matrix, row, col);
+    
+    // for(int i=0; i<row; i++){
+    //     printf("\nmatrix[%d]: %p,Size %ld",i, (matrix+i), sizeof(matrix+i));
+        
+    // }
+    // printf("\n");
+
     display_matrix(matrix, row, col);
+
+    
+
+    delete_matrix(matrix, row, col);
+
+
 
     return 0;
 }

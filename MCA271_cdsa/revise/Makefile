@@ -13,13 +13,11 @@
 
 
 matrix:
-	gcc matrix.c hr.c -o matrix
+	gcc main.c matrix.c hr.c -o main
 
 run: 
-	./matrix
+	./main
 
 clean:
-	rm -f matrix
+	rm -f main
 
-all:
-	test run clean

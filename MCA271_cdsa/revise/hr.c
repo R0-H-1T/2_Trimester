@@ -7,4 +7,5 @@ void line(char c, int n){
         printf("%c", c);
         i++;
     }
+    printf("\n");
 }

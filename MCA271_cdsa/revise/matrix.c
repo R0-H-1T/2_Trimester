@@ -1,7 +1,7 @@
 #include "matrix.h"
 #include<stdio.h>
 #include<stdlib.h>
-#include "hr.h"
+// #include "hr.h"
 
 
 int** initialize_matrix(int** matrix, int row, int col){
@@ -49,33 +49,23 @@ void display_matrix(int** matrix, int row, int col){
     }
 }
 
-int main(int argc, char **argv){
-    int row, col;
-    line('-', 7);
-    printf("\nEnter rows and cols of the matrix: ");
-    scanf("%d %d", &row, &col);
-
-    int** matrix;
-    printf("%p",&matrix);
-
-
-    matrix = initialize_matrix(matrix, row, col);
-    printf("\n\nAddress of matrix: %ld\n\n", sizeof(int*));
-    get_matrix(matrix, row, col);
-    
-    // for(int i=0; i<row; i++){
-    //     printf("\nmatrix[%d]: %p,Size %ld",i, (matrix+i), sizeof(matrix+i));
-        
-    // }
-    // printf("\n");
-
-    display_matrix(matrix, row, col);
-
-    
-
-    delete_matrix(matrix, row, col);
-
-
-
-    return 0;
+void add_matrix(int** matrix1, int** matrix2, int** res, int row, int col){
+    res = initialize_matrix(res, row, col);
+    for(int i=0; i<row; i++){
+        for(int j=0; j<col; j++){
+            res[i][j] = matrix1[i][j] + matrix2[i][j];
+        }
+    }
 }
+
+void subtract_matrix(int** matrix1, int** matrix2, int** res, int row, int col){
+    if( res==NULL){
+        res = initialize_matrix(res, row, col);
+    }
+    for(int i=0; i<row; i++){
+        for(int j=0; j<col; j++){
+            res[i][j] = matrix1[i][j] - matrix2[i][j];
+        }
+    }
+}
+

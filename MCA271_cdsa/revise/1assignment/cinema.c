@@ -37,33 +37,6 @@ unsigned long int** init_unsigned_long_int( unsigned long int **ptr, int rows, i
     return ptr;
 }
 
-
-// void sum( Cinema**c1 ,Cinema**c2, float**ptr, int rows, int cols, int ch){
-//     switch(ch){
-//         case 1:     for( int i=0; i<rows; i++){
-//                        for(int j=0; j<cols; j++){
-//                             ptr[i][j] = (*(c1 + i) + j)->imdb_rating + (*(c2 + i) + j)->imdb_rating;
-//                         }
-//                     }
-//                 break;
-//         case 2:     for( int i=0; i<rows; i++){
-//                        for(int j=0; j<cols; j++){
-//                             ptr[i][j] = (*(c1 + i) + j)->box_office_earnings + (*(c2 + i) + j)->box_office_earnings;
-//                         }
-//                     }
-//                 break;
-//         case 3:     for( int i=0; i<rows; i++){
-//                        for(int j=0; j<cols; j++){
-//                             ptr[i][j] = (*(c1 + i) + j)->release_year + (*(c2 + i) + j)->release_year;
-//                         }
-//                     }
-//                 break;
-//         default: 
-//                 exit(0);   
-//     }
-
-// }
-
 void get_movies(Cinema** c, int rows, int cols) {
     printf("\n\n---- CINEMA #%d ----", ++cinema_count);
     int count = 0;
@@ -173,20 +146,15 @@ void do_analysis( Cinema** c1, Cinema** c2, int rows, int cols, int ch ){
                 free(ptr);
                 break;
         case 2:
-                // Average profit earnings
-                // unsigned long int **ptr1;
-                // ptr1 = init_unsigned_long_int(ptr1, rows, cols);
-                
+                // Average profit earnings 
                 long unsigned int sum = box_office_average(c1, rows, cols);
                 printf("\nAverage box office of CINEMA 1: Rs %li", sum/ (rows * cols));
                 sum = 0;
                 sum = box_office_average(c2, rows, cols);
                 printf("\nAverage box office of CINEMA 2: Rs %li\n\n", sum/ (rows * cols));
-                // disp_box_office_earnings(ptr1, rows, cols);
-                // free(ptr1);
                 break;
         case 3:
-                // FILTER BY YEARS
+                // Filter by years
                 int year;
                 printf("\nEnter year: ");
                 scanf("%d", &year);
@@ -221,6 +189,8 @@ void do_analysis( Cinema** c1, Cinema** c2, int rows, int cols, int ch ){
                 }
                 break;
         case 4:
+                // Delete the movie at row and col.
+                // Initalize 0 or null to the fields of the structure.
                 int c, drow, dcol;
                 printf("\nDelete movie from cinema 1 or 2 (1/2): ");
                 scanf("%d", &c);
@@ -242,7 +212,32 @@ void do_analysis( Cinema** c1, Cinema** c2, int rows, int cols, int ch ){
                 }
                 break;
         case 5:
-                
+            /**
+             * Major @TODO
+             * Insertion is completely dependent on rows and cols.
+             * Need to individualy keep track of rows and cols for each cinema.
+             * Depending on the movie id (which is automatically assigned to a movie),
+             * we can get a count of total movies in the matrix and decide whether to resize the cols or not.
+             * If the movie id == rows * cols, we'll have to resize the matrix using realloc.
+             * Using realloc we'll add one more column to the matrix. so col + 1. For this we need to 
+             *                   c1[i] = (Cinema*) realloc (c1[i], sizeof(Cinema) * (cols + 1));
+             * track cols for each cinema. 
+            */
+                int cinema_no;
+                printf("\nWhich cinema do you want to add movie to? (1/2): ");
+                scanf("%d", &cinema_no);
+
+                if( cinema_no == 1 ) {
+                    // for(int i=0; i<rows; i++) {
+                    //     c1[i] = (Cinema*) realloc (c1[i], sizeof(Cinema) * cols);
+                    // }
+                    printf("\nMovie inserted\n");
+                }else if ( cinema_no == 2 ) {
+                    printf("\nMovie inserted\n");
+                    
+                }else {
+                    printf("\nInvalid key entered :(\n");
+                }
                 break;
         case 6:
                 printf("\n\nExiting ...");
@@ -252,8 +247,6 @@ void do_analysis( Cinema** c1, Cinema** c2, int rows, int cols, int ch ){
                 abort();
     }
 }
-
-
 // can try stdargs lib for this --> @TODO
 void delete_cinemaDB( Cinema** c, int cols ) {
     for(int i=0; i<cols; i++){

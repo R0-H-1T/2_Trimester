@@ -4,12 +4,13 @@
 
 void cinema_menu(){
     // printf("******** WELCOME TO CINEMA DB ********");
-    printf("\nSelect ");
+    printf("\n######### MENU #########");
     printf("\n1. Difference of rating between 2 cinemas.");
     printf("\n2. Average box office earnings of cinemas.");
     printf("\n3. Filter movie by year.");
-    printf("\n4. Percentage difference between cinemas.");
-    printf("\n5. Exit: ");
+    printf("\n4. Delete movie.");
+    printf("\n5. Insert movie.");
+    printf("\n6. Exit. ");
     printf("\nEnter choice: ");
 }
 

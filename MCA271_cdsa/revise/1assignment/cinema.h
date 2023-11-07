@@ -1,7 +1,7 @@
 #ifndef _CINEMA_DB
 #define _CINEMA_DB
 #define MOVIE_SIZE 100
-
+#define INVALID_CINEMA_ID 0 
 typedef struct Cinema {
     unsigned int cinema_id;
     char movie_name[MOVIE_SIZE];

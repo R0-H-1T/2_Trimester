@@ -108,21 +108,23 @@ void display_movies( Cinema** c, int rows, int cols ) {
     int count = 0;
     for( int i=0; i<rows; i++) {
         for( int j=0; j<cols; j++) {
-            printf("\nMovie %d", (*(c + i) + j)->cinema_id + 1);
-            printf("\nMovie name: %s", (*(c + i) + j)->movie_name);
-            printf("\nRelease year: %hu",  (*(c + i) + j)->release_year);
-            printf("\nRating: %1f",  (*(c + i) + j)->imdb_rating);
-            printf("\nBox office earnings: %lu",  (*(c + i) + j)->box_office_earnings);
-            printf("\nRuntime: %2f\n",  (*(c + i) + j)->runtime);
+            if ( (*(c + i) + j)->cinema_id != 0){    
+                printf("\nMovie %d", (*(c + i) + j)->cinema_id + 1);
+                printf("\nMovie name: %s", (*(c + i) + j)->movie_name);
+                printf("\nRelease year: %hu",  (*(c + i) + j)->release_year);
+                printf("\nRating: %1f",  (*(c + i) + j)->imdb_rating);
+                printf("\nBox office earnings: %lu",  (*(c + i) + j)->box_office_earnings);
+                printf("\nRuntime: %2f\n",  (*(c + i) + j)->runtime);
+            }
         }
     }
 }
 
 void disp_imdb_rating( float ** ptr, int rows, int cols ) {
-    printf("ANALYSIS --------------------------------\n");
+    printf("\n\nMovie rating comparision between 2 cinemas\n");
     for(int i=0; i<rows; i++) {
         for(int j=0; j<cols; j++) {
-            printf("%2f\t\t", ptr[i][j]);
+            printf("%.1f\t\t", ptr[i][j]);
         }
         printf("\n");
     }
@@ -189,14 +191,14 @@ void do_analysis( Cinema** c1, Cinema** c2, int rows, int cols, int ch ){
                 printf("\nEnter year: ");
                 scanf("%d", &year);
                 char ch;
-                printf("\nLess than or greater than %d? l/g", year);
+                printf("Less than or greater than year %d? l/g: ", year);
                 getchar();
                 scanf("%c", &ch);
                 if( ch == 'l'){
                     int flag = 0;
                     for(int i=0; i<rows; i++) {
                         for(int j=0; j<cols; j++) {
-                            if( (*(c1 + i) + j)->imdb_rating < year ) {
+                            if( (*(c1 + i) + j)->release_year < year ) {
                                 flag = 1;
                                 display_movie(c1[i][j]);
                             }
@@ -207,7 +209,7 @@ void do_analysis( Cinema** c1, Cinema** c2, int rows, int cols, int ch ){
                     int flag = 0;
                     for(int i=0; i<rows; i++) {
                         for(int j=0; j<cols; j++) {
-                            if( (*(c1 + i) + j)->imdb_rating > year ) {
+                            if( (*(c1 + i) + j)->release_year > year ) {
                                 flag = 1;
                                 display_movie(c1[i][j]);
                             }
@@ -219,9 +221,30 @@ void do_analysis( Cinema** c1, Cinema** c2, int rows, int cols, int ch ){
                 }
                 break;
         case 4:
+                int c, drow, dcol;
+                printf("\nDelete movie from cinema 1 or 2 (1/2): ");
+                scanf("%d", &c);
 
+                printf("\nYour cinema DB is of %d rows and %d cols\nEnter row and col to delete: ", rows, cols);
+                scanf("%d %d", &drow, &dcol);
+                if( c == 1 ) {
+                    c1[drow][dcol].cinema_id = INVALID_CINEMA_ID;
+                    printf("\nMovie deleted from cinema\n---------- Movies in CINEMA 1 ----------\n");
+                    display_movies(c1, rows, cols);
+
+                }else if ( c == 2 ) {
+                    c2[drow][dcol].cinema_id = INVALID_CINEMA_ID;
+                    printf("\nMovie deleted from cinema\n---------- Movies in CINEMA 2 ----------\n");
+                    display_movies(c2, rows, cols);
+
+                }else {  
+                    printf("\nWrong choice entered :(\n ");
+                }
                 break;
         case 5:
+                
+                break;
+        case 6:
                 printf("\n\nExiting ...");
                 exit(0);
         default:

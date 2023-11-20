@@ -2,14 +2,19 @@
 #include<stdlib.h>
 #include"linkedlist.h"
 
-
-
 int main() {   
-    list* head = NULL; 
+    int pos;
+    list* head = createList(); 
     displayList(head);
-    head = appendNode(head);
+    // insertBeginning(&head);
+    // displayList(head);
+    // appendNode(head);
+    // displayList(head);
+    printf("\nSize of linked list: %d", listLength(head));
+    printf("\nEnter position to enter the node: ");
+    scanf("%d", &pos);
+    addAtPost(&head, pos);
     displayList(head);
-    // printf("List length: %d", listLength(head));
     deleteList(head);
     // free(head);
     return 0;

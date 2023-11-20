@@ -3,35 +3,30 @@
 #include<stdarg.h>
 #include"linkedlist.h"
 
-//D:\dev\test\DS and ALGO\doubleLL.c
-//
-
-list* insertBeginning(list* head){
-    printf("\nInserting node at beginning\n");
-    if(head == NULL){
-        printf("\nList is not created.\nCreating new list...\n");
-        head = createNode();
+//Heap and stack memory
+void insertBeginning(list** head){
+    if( *head == NULL ){
+        printf("\nLinked List does not exist.");
     }else{
-        list* firstNode = createNode();
-        firstNode->link = head;
-        head = firstNode;
+        printf("\nInserting in the beginning\n");
+        list* new_node = createNode();
+        new_node->link = *head;
+        *head = new_node;
     }
-    return head;
 }
 
-list* appendNode(list* head){
-    printf("\nAppending node at end");
+
+void appendNode(list* head){
     if( head == NULL ){
-        printf("List Not created.\nCreating new list...\n");
-        head = createNode();
+        printf("\nLinked list does not exit.\n");
     }else{
+        printf("\nAppending node at end\n");
         list* temp = head;
         while( temp->link != NULL ){
             temp = temp->link;
         }
         temp->link = createNode();
     }
-    return head;
 }
 
 int listLength(list* head){
@@ -47,7 +42,7 @@ list* createNode() {
     printf("Enter data for the node: ");
     list* newNode = (list*)malloc(sizeof(list));
     if( newNode == NULL ){
-        fprintf(stderr, "New Node create not possible");
+        fprintf(stderr, "\nFailed to create new node");
         exit(EXIT_FAILURE);
     }
     scanf("%d", &newNode->data);
@@ -66,19 +61,18 @@ list* createList() {
     if( ch == 'y' ) {
         newNode->link = createList();
     }
-
     return newNode;
 }
+
 
 void displayList(list* temp) {
     while( temp != NULL) {
         printf("%d ", temp->data);
         temp = temp->link;
     }
-    printf("NULL");
 }
 
-// Difference between heap and stack memory :
+
 
 void deleteList(list* head){
     list * current = head;
@@ -91,3 +85,32 @@ void deleteList(list* head){
     free(next);
     free(current);
 }    
+
+//        23 45 90 19 76
+void addAtPost(list **head, int pos){
+    int listsize = listLength(*head);
+    if( pos > 0 && pos <= listsize){
+        if( pos == 1 ){
+            insertBeginning(head);
+        }else if( pos == listsize){
+            appendNode(*head);
+        }else{
+            int counter = 1;
+            list *temp = *head;
+            while(counter != pos-1){
+                temp = temp->link;
+                counter++;
+            }
+            list* next = temp->link;
+            temp->link = createNode();
+            temp->link->link = next;
+        }
+    }else{
+        printf("\nInvalid position entered");
+    }
+}
+
+
+
+
+

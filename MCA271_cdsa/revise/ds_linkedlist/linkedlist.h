@@ -7,13 +7,15 @@ typedef struct list {
 }list;
 
 
-list* insertBeginning(list* );
+void insertBeginning(list**);
 list* createNode();
 list* createList();
 void displayList(list* );
 void deleteList(list* );
-list* appendNode(list* );
+void appendNode(list*);
 int listLength(list* );
+void addAtPost(list **, int);
+
 
 // list* new_node(list* , int );
 // list* create_list(list*, int* , int );

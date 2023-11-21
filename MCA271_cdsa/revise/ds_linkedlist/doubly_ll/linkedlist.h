@@ -13,5 +13,12 @@ dlist* createNode();
 void displayList(dlist *, bool);
 void deleteList(dlist* );
 dlist* createList();
+//insertInBeginning
+//InsertEnd
+//InsertAtPos
+//DeleteEnd
+//DeleteFirst
+//DeleteAtPos
+//ListLength
 
 #endif

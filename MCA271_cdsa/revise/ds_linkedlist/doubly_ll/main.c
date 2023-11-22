@@ -10,17 +10,11 @@ int main() {
     head = createList();
     displayList(head, false);
 
-    insertInBeginning(&head);
-    displayList(head, false);
-
-    printf("\nEnter position for insertion of node: ");
+    printf("\nNodes in linked list: %d", listSize(head));
+    printf("\nEnter the position for deleting the node: ");
     scanf("%d", &pos);
-    printf("\n");
-    insertAtPos(&head, pos);
+    deleteAtPos(&head, pos);
     displayList(head, false);
-    displayList(head, true);
-
-
     // insertAtEnd(head);
     // displayList(head, false);
     // displayList(head, true);

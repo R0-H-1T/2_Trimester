@@ -79,7 +79,7 @@ void displayList(dlist* temp, bool rev) {
         }
     }
 }
-// 12 34 56 78 90 11
+
 void insertAtPos(dlist** head, int pos){
     int list_length = listSize(*head);
     dlist* temp = *head;
@@ -113,6 +113,33 @@ void insertAtPos(dlist** head, int pos){
         }
     }else{
         printf("\nInvalid position entered\n");
+    }
+}
+// 12 34 56 78 90 11
+
+void deleteAtPos(dlist** head, int pos) {
+    dlist *temp = *head;
+    int list_size = listSize(*head);
+    if ( pos <= list_size && pos > 0 ) {
+        if( pos == list_size ) {
+            while( temp->next->next != NULL ){
+                temp = temp -> next;
+            }
+            free(temp->next->next);
+            temp->next = NULL;
+        }else if ( pos == 1 ) {
+            temp = temp->next;
+            temp->prev = NULL;
+            *head = temp;
+        }else {
+            int counter = 1;
+            while( counter != pos-1 ) {
+                temp = temp -> next;
+                counter++;
+            }
+            temp->next->next->prev = temp;
+            temp->next = temp->next->next;
+        }
     }
 }
 

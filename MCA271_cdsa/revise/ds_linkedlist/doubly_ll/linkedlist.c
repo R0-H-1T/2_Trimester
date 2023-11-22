@@ -128,17 +128,18 @@ void deleteAtPos(dlist** head, int pos) {
             free(temp->next->next);
             temp->next = NULL;
         }else if ( pos == 1 ) {
-            temp = temp->next;
-            temp->prev = NULL;
-            *head = temp;
+            *head = temp->next;
+            free(temp);
         }else {
             int counter = 1;
             while( counter != pos-1 ) {
                 temp = temp -> next;
                 counter++;
             }
-            temp->next->next->prev = temp;
-            temp->next = temp->next->next;
+            dlist* nextnode = temp->next->next;
+            nextnode->prev = temp;
+            free(temp->next);
+            temp->next = nextnode;
         }
     }
 }

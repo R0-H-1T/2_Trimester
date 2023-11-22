@@ -18,9 +18,5 @@ void insertInBeginning(dlist** );
 void insertAtEnd(dlist* );
 void insertAtPos(dlist** , int );
 void deleteAtPos(dlist** , int );
-//InsertAtPos
-//DeleteEnd
-//DeleteFirst
-//DeleteAtPos
 
 #endif

@@ -14,9 +14,9 @@ void displayList(dlist *, bool);
 void deleteList(dlist* );
 dlist* createList();
 int listSize(dlist* );
-void insertInBeginning(dlist **);
-//insertInBeginning
-//InsertEnd
+void insertInBeginning(dlist** );
+void insertAtEnd(dlist* );
+void insertAtPos(dlist** , int );
 //InsertAtPos
 //DeleteEnd
 //DeleteFirst

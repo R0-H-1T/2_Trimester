@@ -42,8 +42,27 @@ void insertInBeginning(dlist **head){
     }
 }
 
+void insertAtEnd(dlist *head){
+    if( head == NULL ){
+        char ch;
+        printf("\nLinked List does not exist.\nMake one?(y/n):");
+        getchar();
+        scanf("%c", &ch);
+        if( ch == 'y'|| ch == 'Y'){
+            head = createList();
+        }
+    }else{
+        dlist* temp = head;
+        while(temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = createNode();
+        temp->next->prev = temp;
+    }
+}
+
 void displayList(dlist* temp, bool rev) {
-    printf("\nDisplaying list:\n");
+    printf("\nDisplaying list:");
     if(rev){
         while(temp->next->next != NULL){
             temp = temp->next;
@@ -58,6 +77,42 @@ void displayList(dlist* temp, bool rev) {
             printf("%d ", temp->data);
             temp = temp -> next;
         }
+    }
+}
+// 12 34 56 78 90 11
+void insertAtPos(dlist** head, int pos){
+    int list_length = listSize(*head);
+    dlist* temp = *head;
+    dlist* newnode = createNode();
+
+    if( pos <= list_length && pos > 0) {
+        if(pos == 1) {
+            insertInBeginning(head);
+        }else if( pos == list_length ) {
+            while( temp->next->next != NULL){
+                temp = temp->next;
+            }
+            newnode->prev = temp;
+            newnode->next = temp->next;
+            temp->next = newnode;
+            newnode->next->prev = newnode;
+            // inserting at last doesn not mean appending
+            // fix this in singly linked list 
+        }else {
+            int counter = 1;
+            while( counter != pos-1 ){
+                temp = temp->next;
+                counter++;
+            }
+            temp->next->prev = newnode;
+            newnode->next = temp->next;
+            temp->next = newnode;
+            temp->next->prev = temp;
+            
+            // newnode->next->prev = newnode;
+        }
+    }else{
+        printf("\nInvalid position entered\n");
     }
 }
 

@@ -85,7 +85,7 @@ void display_movies( Cinema** c, int rows, int cols ) {
                 printf("\nMovie %d", (*(c + i) + j)->cinema_id + 1);
                 printf("\nMovie name: %s", (*(c + i) + j)->movie_name);
                 printf("\nRelease year: %hu",  (*(c + i) + j)->release_year);
-                printf("\nRating: %1f",  (*(c + i) + j)->imdb_rating);
+                printf("\nRating: %.1f",  (*(c + i) + j)->imdb_rating);
                 printf("\nBox office earnings: %lu",  (*(c + i) + j)->box_office_earnings);
                 printf("\nRuntime: %2f\n",  (*(c + i) + j)->runtime);
             }
@@ -126,7 +126,7 @@ void display_movie( Cinema c ) {
         printf("\nMovie %d", c.cinema_id + 1);
         printf("\nMovie name: %s", c.movie_name);
         printf("\nRelease year: %hu",  c.release_year);
-        printf("\nRating: %1f",  c.imdb_rating);
+        printf("\nRating: %.1f",  c.imdb_rating);
         printf("\nBox office earnings: %lu",  c.box_office_earnings);
         printf("\nRuntime: %2f\n",  c.runtime);
 }

@@ -17,6 +17,8 @@ typedef struct Movie{
 Movie* getData();
 Movie* getAnotherData();
 void displayMovie(Movie* );
+void menuHandler();
+void display_movietitle(Movie* );
 // void deleteMovies(Movie* , int );
 #endif
 

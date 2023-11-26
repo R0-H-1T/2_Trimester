@@ -2,8 +2,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include"cinema.h"
-
-
+#include "dlinkedlist.h"
+#include"helper.c"
 
 
 void displayMovie(Movie *ptr) {
@@ -17,7 +17,46 @@ void displayMovie(Movie *ptr) {
     }
 }
 
+void topmenu(){
+    printf("\n\nOptions\n");
+    printf("\n1. Use Existing movie list.");
+    printf("\n2. Create your movie list.");
+    printf("\n3. Exit.");
+    printf("\nEnter choice: ");
+}
 
+void menuHandler(){
+    int ch;
+    topmenu();
+    scanf("%d", &ch);
+    Dlist *movie_ptr = NULL;
+    switch (ch){
+    case 1:
+        Movie *ptr = getData();
+        // display_movietitle(ptr);
+        movie_ptr = convert_to_dlinkedlist(ptr, MOVIE_NO);
+        clear();
+        display_llmovies(movie_ptr);
+        deleteList(movie_ptr);
+        break;
+    case 2:
+        movie_ptr = createList();
+        break;
+    case 3:
+        printf("\n\nExiting...\nGood Bye\n");
+        exit(EXIT_FAILURE);
+        break;
+    default:
+        printf("\nInvalid choice selected");
+        break;
+    }    
+}
+
+void display_movietitle(Movie* ptr) {
+    for(int i=0; i<MOVIE_NO; i++){
+            printf("\nID: %d Title: %s", ptr[i].movie_id, ptr[i].movie_name);
+    }
+}
 
 Movie* getData(){
     int movie_count = 0;

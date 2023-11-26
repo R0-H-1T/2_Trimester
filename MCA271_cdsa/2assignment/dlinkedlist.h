@@ -9,5 +9,10 @@ typedef struct dlist {
     struct dlist *prev;
 }Dlist;
 
-
+Dlist* convert_to_dlinkedlist(Movie *, int );
+Dlist* make_movie(Movie ); 
+Dlist* createList();
+void display_llmovies(Dlist *);
+void deleteList(Dlist* );
+Dlist* createNode();
 #endif

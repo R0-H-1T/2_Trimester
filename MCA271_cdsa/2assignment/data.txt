@@ -11,5 +11,20 @@ Robert Downey Jr,Chris Evans,Jeremy Renner
 3
 Ford Vs Ferrari
 7.7
-Matt Damon, Christian Bale, California Balfe
+Matt Damon,Christian Bale,California Balfe
 3 9
+4
+It
+8.7
+Alfred Pennyworth,Noah Flynn,Sarah Turner
+2 51
+5
+Tropical Thunder
+6.7
+Ben Stiller,Jack Black,Tom Cruise
+1 47
+6
+The Tuxedo
+5.4
+Jennifer Hewitt,Jackie Chan,Jason Issacs
+1 38

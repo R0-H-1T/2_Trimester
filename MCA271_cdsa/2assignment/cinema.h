@@ -1,6 +1,7 @@
 #ifndef _CINEMA_V1
 #define _CINEMA_V1
 
+#define MOVIE_NO 6
 #define MAX_MOVIE_SIZE 128
 #define CAST_NO 3
 #define CAST_SIZE 64
@@ -13,8 +14,9 @@ typedef struct Movie{
     unsigned short int movie_watch_duration[2];
 }Movie;
 
-void getData();
+Movie* getData();
 Movie* getAnotherData();
-
+void displayMovie(Movie* );
+// void deleteMovies(Movie* , int );
 #endif
 

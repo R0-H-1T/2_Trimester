@@ -1,5 +1,4 @@
 
-
 Welcome to cinema
 MENU
 #1 Scroll movies in the list.
@@ -10,19 +9,19 @@ MENU
 #5 Exit
 
 
-ID: 1
-Name: The Avengers
-Release Year: 2014
-Cast: Robert Downey Jr., Samuel L Jackson, 
-Rating: 3.2
-Watch duration: 3h 12m
+
+use malloc -> save it in the structure -> return the address
+movie count -> how to find that?
+
+OPERATIONS OF A LINKED LIST:
+traversal -> forward, backward
+insertion -> front, end, pos
+deletion -> front, end, pos
 
 
-structure {
-    unsigned short int movie_id;
-    char movie_name;
-    char cast[3][64];
-    float rating;
-    char watch_duration[6];
-}
 
+#1 work with predifined movie list?  :  create your own list?
+    #2 display in ascending order / descending order ? 
+        - Only Movie titles?
+    #3 add movie at first, last, at pos
+    #4 del movie 

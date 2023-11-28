@@ -5,6 +5,7 @@
 #include "dlinkedlist.h"
 #include"helper.c"
 
+int movie_counter = 0;
 
 void displayMovie(Movie *ptr) {
     for(int i=0; i<MOVIE_NO; i++){
@@ -59,7 +60,6 @@ void display_movietitle(Movie* ptr) {
 }
 
 Movie* getData(){
-    int movie_count = 0;
     Movie *m2 = (Movie*) malloc (sizeof(Movie) * MOVIE_NO);
     FILE *file = fopen("data.txt", "r");
     if ( file == NULL ) {
@@ -72,22 +72,22 @@ Movie* getData(){
                     // "%d\n %[^\n]\n %d\n %[^\n]\n %f\n %d %d\n"
                     "%hu\n%[^\n]\n%f\n%[^\n]\n%hu %hu\n",
                     //&(*(c + i) + j)->release_year
-                    &m2[movie_count].movie_id, m2[movie_count].movie_name, &m2[movie_count].movie_rating, temp_cast,
-                    &m2[movie_count].movie_watch_duration[0], &m2[movie_count].movie_watch_duration[1]
+                    &m2[movie_counter].movie_id, m2[movie_counter].movie_name, &m2[movie_counter].movie_rating, temp_cast,
+                    &m2[movie_counter].movie_watch_duration[0], &m2[movie_counter].movie_watch_duration[1]
                 )== 6) {
 
         // Process actors string and store each actor in the array
         char *token = strtok(temp_cast, ",");
         int actorCount = 0;
         while (token != NULL && actorCount < CAST_NO) {
-            strcpy(m2[movie_count].movie_cast[actorCount], token);
+            strcpy(m2[movie_counter].movie_cast[actorCount], token);
             actorCount++;
             token = strtok(NULL, ",");
         }
         //printf("BEFORE: %d\n", m2[movie_count].movie_id);
         
         // Print or process the read data
-        movie_count++;
+        movie_counter++;
     }
     fclose(file);
 

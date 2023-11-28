@@ -14,6 +14,8 @@ typedef struct Movie{
     unsigned short int movie_watch_duration[2];
 }Movie;
 
+extern int movie_counter;
+
 Movie* getData();
 Movie* getAnotherData();
 void displayMovie(Movie* );

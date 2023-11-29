@@ -6,6 +6,8 @@
 #define CAST_NO 3
 #define CAST_SIZE 64
 
+
+
 typedef struct Movie{
     unsigned short int movie_id;
     char movie_name[MAX_MOVIE_SIZE];
@@ -21,6 +23,8 @@ Movie* getAnotherData();
 void displayMovie(Movie* );
 void menuHandler();
 void display_movietitle(Movie* );
+Movie* getMovie();
+
 // void deleteMovies(Movie* , int );
 #endif
 

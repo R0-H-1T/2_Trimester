@@ -26,6 +26,91 @@ void topmenu(){
     printf("\nEnter choice: ");
 }
 
+void secondmenu(){
+    printf("\n\nOptions\n");
+    printf("\n1. Display title only.");
+    printf("\n2. Display movie in detail.");
+    printf("\n3. Add movie at end.");
+    printf("\n4. Display movie in beginning.");
+    printf("\n5. Delete a movie at position.");
+    printf("\n6. Go back.");
+
+    printf("\nEnter choice: ");
+}
+
+
+Movie* getMovie(){
+    printf("\n\nEnter details of movie --");
+    Movie *ptr = (Movie*) malloc (sizeof(Movie));
+
+    // 2
+    getchar();
+    char movie_title[MAX_MOVIE_SIZE];
+    printf("\nEnter movie name: ");
+    fgets(movie_title, MAX_MOVIE_SIZE, stdin);
+    movie_title[strcspn(movie_title, "\n")] = '\0';
+    strcpy(ptr->movie_name, movie_title);
+
+    // 3
+    printf("Enter movie rating: ");
+    scanf("%f", &ptr->movie_rating);
+    getchar();
+
+    // 4
+    printf("Enter min 3 actors -\n");
+    char movie_cast[CAST_SIZE];
+    for(int i=0; i<3; i++) {
+        printf("%d: ", i+1);
+        fgets(movie_cast, CAST_SIZE, stdin);
+        movie_cast[strcspn(movie_cast, "\n")] = '\0';
+        strcpy(ptr->movie_cast[i], movie_cast);
+    }
+
+    // 5
+    printf("Enter watch duration in (hh mm) format: ");
+    scanf("%hu %hu", &ptr->movie_watch_duration[0], &ptr->movie_watch_duration[1]);
+    getchar();
+    // 1
+    ptr->movie_id = ++movie_counter;
+    
+    return ptr;
+}
+
+int inner_menuHandler(Dlist *movie_ptr) {
+    while(1){
+        int ch1;
+        secondmenu();   
+        scanf("%d", &ch1);
+        switch(ch1) {
+            case 1: 
+                    display_llmovies(movie_ptr);
+                    break;
+            case 2: 
+                    char order;
+                    printf("\nDisplay in ascening or descending?(a/d): ");
+                    getchar();  
+                    scanf("%c", &order);
+                    if( order == 'a'){
+                        display_llmovies_in_detail(movie_ptr, false);
+                    }else if ( order == 'd') {
+                        display_llmovies_in_detail(movie_ptr, true);
+                    }else{
+                        printf("\nKey Invalid");
+                    }
+                    break;
+            case 4:
+                    insertInBeginning(&movie_ptr);
+                    break;
+            case 6:
+                    return 1;            
+            default:
+                    printf("Invalid choice provided");
+                    break;
+        }
+    }
+        // clear();
+}
+
 void menuHandler(){
     int ch;
     topmenu();
@@ -34,17 +119,15 @@ void menuHandler(){
     switch (ch){
     case 1:
         Movie *ptr = getData();
-        // display_movietitle(ptr);
         movie_ptr = convert_to_dlinkedlist(ptr, MOVIE_NO);
-        clear();
-        display_llmovies(movie_ptr);
-        deleteList(movie_ptr);
+        if(inner_menuHandler(movie_ptr)) break;
         break;
     case 2:
         movie_ptr = createList();
         break;
     case 3:
         printf("\n\nExiting...\nGood Bye\n");
+        deleteList(movie_ptr);
         exit(EXIT_FAILURE);
         break;
     default:
@@ -60,6 +143,7 @@ void display_movietitle(Movie* ptr) {
 }
 
 Movie* getData(){
+    movie_counter = 0;
     Movie *m2 = (Movie*) malloc (sizeof(Movie) * MOVIE_NO);
     FILE *file = fopen("data.txt", "r");
     if ( file == NULL ) {

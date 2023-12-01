@@ -19,5 +19,6 @@ Dlist* createNode();
 int lengthList(Dlist* );
 Dlist* insertInBeginning(Dlist **);
 Dlist* getAMovieNode(); 
+void addEnd(Dlist *);
 
 #endif

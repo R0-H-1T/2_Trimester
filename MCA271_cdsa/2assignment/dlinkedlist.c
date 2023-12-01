@@ -14,9 +14,8 @@ Dlist* make_movie(Movie m) {
     return newnode;
 }
 
-
 int lengthList(Dlist* temp){
-   int count = 0;
+    int count = 0;
     while( temp!= NULL ){
         temp = temp->next;
         count++;
@@ -24,7 +23,15 @@ int lengthList(Dlist* temp){
     return count;
 }
 
-
+void addEnd(Dlist *head) {
+    Dlist *temp = head;
+    
+    while(temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = getAMovieNode();
+    temp->next->prev = temp;
+}
 
 Dlist* getAMovieNode() {
     Movie *m = getMovie();

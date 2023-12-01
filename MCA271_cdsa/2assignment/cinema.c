@@ -98,9 +98,14 @@ int inner_menuHandler(Dlist *movie_ptr) {
                         printf("\nKey Invalid");
                     }
                     break;
+            case 3:
+                    addEnd(movie_ptr); 
+                    break;
             case 4:
                     insertInBeginning(&movie_ptr);
                     break;
+            case 5:
+                    
             case 6:
                     return 1;            
             default:

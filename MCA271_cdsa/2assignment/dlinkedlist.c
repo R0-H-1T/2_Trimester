@@ -52,6 +52,33 @@ void test3(Movie *ptr) {
                    ptr->movie_rating ,ptr->movie_watch_duration[0],   ptr->movie_watch_duration[1]);
 }
 
+void delAtPos(Dlist** head, int pos) {
+    Dlist *temp = *head;
+    int list_size = lengthList(*head);
+    if ( pos <= list_size && pos > 0 ) {
+        if( pos == list_size ) {
+            while( temp->next->next != NULL ){
+                temp = temp -> next;
+            }
+            free(temp->next->next);
+            temp->next = NULL;
+        }else if ( pos == 1 ) {
+            *head = temp->next;
+            free(temp);
+        }else {
+            int counter = 1;
+            while( counter != pos-1 ) {
+                temp = temp -> next;
+                counter++;
+            }
+            Dlist* nextnode = temp->next->next;
+            nextnode->prev = temp;
+            free(temp->next);
+            temp->next = nextnode;
+        }
+    }
+}
+
 Dlist* insertInBeginning(Dlist **head) {
     Dlist* newnode = getAMovieNode();
     
@@ -91,6 +118,7 @@ void deleteList(Dlist *temp) {
         current = next;
     }
 }
+
 
 
 Dlist* createList(){

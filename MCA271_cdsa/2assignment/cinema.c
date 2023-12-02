@@ -105,7 +105,12 @@ int inner_menuHandler(Dlist *movie_ptr) {
                     insertInBeginning(&movie_ptr);
                     break;
             case 5:
-                    
+                    int pos;
+                    printf("\nEnter pos of the movie to be deleted: ");
+                    scanf("%d", &pos);
+                    getchar();
+                    delAtPos(&movie_ptr, pos);
+                    break;
             case 6:
                     return 1;            
             default:

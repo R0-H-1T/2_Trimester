@@ -20,5 +20,6 @@ int lengthList(Dlist* );
 Dlist* insertInBeginning(Dlist **);
 Dlist* getAMovieNode(); 
 void addEnd(Dlist *);
+void delAtPos(Dlist** , int);
 
-#endif
+#endif  

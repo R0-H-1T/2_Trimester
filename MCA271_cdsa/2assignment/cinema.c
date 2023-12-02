@@ -31,9 +31,10 @@ void secondmenu(){
     printf("\n1. Display title only.");
     printf("\n2. Display movie in detail.");
     printf("\n3. Add movie at end.");
-    printf("\n4. Display movie in beginning.");
-    printf("\n5. Delete a movie at position.");
-    printf("\n6. Go back.");
+    printf("\n4. Add movie at position.");
+    printf("\n5. Display movie in beginning.");
+    printf("\n6. Delete a movie at position.");
+    printf("\n7. Go back.");
 
     printf("\nEnter choice: ");
 }
@@ -98,20 +99,26 @@ int inner_menuHandler(Dlist *movie_ptr) {
                         printf("\nKey Invalid");
                     }
                     break;
+            case 4:
+                    int pos1;
+                    printf("Enter position to add the movie: ");
+                    scanf("%d", &pos1);
+                    insertAtPos(&movie_ptr, pos1);
+                    break;
             case 3:
                     addEnd(movie_ptr); 
                     break;
-            case 4:
+            case 5:
                     insertInBeginning(&movie_ptr);
                     break;
-            case 5:
+            case 6:
                     int pos;
                     printf("\nEnter pos of the movie to be deleted: ");
                     scanf("%d", &pos);
                     getchar();
                     delAtPos(&movie_ptr, pos);
                     break;
-            case 6:
+            case 7:
                     return 1;            
             default:
                     printf("Invalid choice provided");

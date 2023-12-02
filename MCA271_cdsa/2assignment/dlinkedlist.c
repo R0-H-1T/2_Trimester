@@ -33,6 +33,44 @@ void addEnd(Dlist *head) {
     temp->next->prev = temp;
 }
 
+void insertAtPos(Dlist** head, int pos) {
+    int list_length = lengthList(*head);
+    Dlist* temp = *head;
+    Dlist* newnode = getAMovieNode();
+
+    if( pos <= list_length && pos > 0) {
+        if(pos == 1) {    
+            newnode->next = *head;
+            (*head)->prev = newnode;
+            *head = newnode;
+        }else if( pos == list_length ) {
+            while( temp->next->next != NULL){
+                temp = temp->next;
+            }
+            newnode->prev = temp;
+            newnode->next = temp->next;
+            temp->next = newnode;
+            newnode->next->prev = newnode;
+            // inserting at last doesn not mean appending
+            // fix this in singly linked list 
+        }else {
+            int counter = 1;
+            while( counter != pos-1 ){
+                temp = temp->next;
+                counter++;
+            }
+            temp->next->prev = newnode;
+            newnode->next = temp->next;
+            temp->next = newnode;
+            temp->next->prev = temp;
+            
+            // newnode->next->prev = newnode;
+        }
+    }else{
+        printf("\nInvalid position entered\n");
+    }
+}
+
 Dlist* getAMovieNode() {
     Movie *m = getMovie();
     Dlist* newnode = (Dlist*) malloc (sizeof(Dlist));    
@@ -81,7 +119,6 @@ void delAtPos(Dlist** head, int pos) {
 
 Dlist* insertInBeginning(Dlist **head) {
     Dlist* newnode = getAMovieNode();
-    
     
     newnode->next = *head;
     (*head)->prev = newnode;

@@ -21,5 +21,6 @@ Dlist* insertInBeginning(Dlist **);
 Dlist* getAMovieNode(); 
 void addEnd(Dlist *);
 void delAtPos(Dlist** , int);
+void insertAtPos(Dlist**, int);
 
 #endif  

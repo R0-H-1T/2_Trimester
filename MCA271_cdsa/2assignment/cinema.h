@@ -7,7 +7,6 @@
 #define CAST_SIZE 64
 
 
-
 typedef struct Movie{
     unsigned short int movie_id;
     char movie_name[MAX_MOVIE_SIZE];
@@ -16,15 +15,20 @@ typedef struct Movie{
     unsigned short int movie_watch_duration[2];
 }Movie;
 
-extern int movie_counter;
 
-Movie* getData();
-Movie* getAnotherData();
-void displayMovie(Movie* );
-void menuHandler();
-void display_movietitle(Movie* );
+// declared extern for the value of the variable to persist
+// across files.
+extern int Movie_Counter;
+
+void topMenu();
+void secondMenu();
 Movie* getMovie();
+void menuHandler();
+Movie* loadMovieFromFile();
 
 
+//void displayMovie(Movie *p);
+//void display_movietitle(Movie* ptr);
+//Movie* getAnotherData();
 // void deleteMovies(Movie* , int );
 #endif

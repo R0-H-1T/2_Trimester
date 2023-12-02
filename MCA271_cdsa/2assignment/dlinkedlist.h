@@ -3,24 +3,34 @@
 
 #include"cinema.h"
 #include"stdbool.h"
+
+
 typedef struct dlist {
     struct dlist *next;
     Movie movie;
     struct dlist *prev;
 }Dlist;
 
-Dlist* convert_to_dlinkedlist(Movie *, int );
-Dlist* make_movie(Movie ); 
-Dlist* createList();
-void display_llmovies(Dlist *);
-void display_llmovies_in_detail(Dlist *, bool );
-void deleteList(Dlist* );
-Dlist* createNode();
-int lengthList(Dlist* );
-Dlist* insertInBeginning(Dlist **);
-Dlist* getAMovieNode(); 
-void addEnd(Dlist *);
-void delAtPos(Dlist** , int);
-void insertAtPos(Dlist**, int);
+
+Dlist* makeMovie(Movie m) ;
+int lengthList(Dlist* temp) ;
+Dlist* getAMovieNode() ;
+Dlist* convertToDlinkedlist(Movie *ptr, int total_movies) ;
+
+
+// INSERTION
+void addEnd(Dlist *head) ;
+void insertAtPos(Dlist** head, int pos) ;
+void delAtPos(Dlist** head, int pos) ;
+Dlist* insertInBeginning(Dlist **head) ;
+
+
+// DELETION
+void deleteList(Dlist *temp) ;
+void displayMovieInDetail(Dlist *ptr, bool rev) ;
+void displayMovieTitle(Dlist *ptr) ;
+
+// @todo
+// Dlist* createList() ;
 
 #endif  

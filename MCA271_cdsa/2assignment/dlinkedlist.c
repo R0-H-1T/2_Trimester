@@ -5,7 +5,7 @@
 #include<stdbool.h>
 
 
-Dlist* make_movie(Movie m) {
+Dlist* makeMovie(Movie m) {
     Dlist *newnode = (Dlist*) malloc (sizeof(Dlist));
     newnode->prev = NULL;
     newnode->next = NULL;
@@ -14,7 +14,7 @@ Dlist* make_movie(Movie m) {
     return newnode;
 }
 
-int lengthList(Dlist* temp){
+int lengthList(Dlist* temp) {
     int count = 0;
     while( temp!= NULL ){
         temp = temp->next;
@@ -81,15 +81,6 @@ Dlist* getAMovieNode() {
     return newnode;
 }
 
-void test3(Movie *ptr) {
-    printf("ID: %d\nTitle: %s\nActors: ", ptr->movie_id, ptr->movie_name);
-            for (int j = 0; j < 3; j++) {
-                printf("%s", ptr->movie_cast[j]);
-            }//m2.movie_cast[i], (i < actorCount - 1) ? "," : ""
-            printf("\nRating: %.1f\nWatch duration: %huh %hum\n\n",
-                   ptr->movie_rating ,ptr->movie_watch_duration[0],   ptr->movie_watch_duration[1]);
-}
-
 void delAtPos(Dlist** head, int pos) {
     Dlist *temp = *head;
     int list_size = lengthList(*head);
@@ -126,17 +117,15 @@ Dlist* insertInBeginning(Dlist **head) {
 
 }
 
-
-
-Dlist* convert_to_dlinkedlist(Movie *ptr, int total_movies) {
+Dlist* convertToDlinkedlist(Movie *ptr, int total_movies) {
     Dlist *head = NULL;
     Dlist *temp;
     for(int i=0; i<total_movies; i++){
         if( head == NULL ){
-            head = temp = make_movie(*(ptr + i));
+            head = temp = makeMovie(*(ptr + i));
             // printf("\nOnce");
         }else{
-            temp->next = make_movie(*(ptr + i));
+            temp->next = makeMovie(*(ptr + i));
             temp->next->prev =temp;
             temp = temp->next;
             // printf("\nAlways");
@@ -156,13 +145,7 @@ void deleteList(Dlist *temp) {
     }
 }
 
-
-
-Dlist* createList(){
-
-}
-
-void display_llmovies_in_detail(Dlist *ptr, bool rev) {
+void displayMovieInDetail(Dlist *ptr, bool rev) {
 
     if(rev) {
         while(ptr->next->next != NULL){
@@ -192,9 +175,23 @@ void display_llmovies_in_detail(Dlist *ptr, bool rev) {
     
 }
 
-void display_llmovies(Dlist *ptr) {
+void displayMovieTitle(Dlist *ptr) {
     while(ptr != NULL){
         printf("\n%d %s", ptr->movie.movie_id, ptr->movie.movie_name);
         ptr = ptr->next;
     }
 }
+
+// Create List
+// Dlist* createList() {
+// }
+
+// Test to print a movie -> movie pointer
+// void test3(Movie *ptr) {
+//     printf("ID: %d\nTitle: %s\nActors: ", ptr->movie_id, ptr->movie_name);
+//             for (int j = 0; j < 3; j++) {
+//                 printf("%s", ptr->movie_cast[j]);
+//             }//m2.movie_cast[i], (i < actorCount - 1) ? "," : ""
+//             printf("\nRating: %.1f\nWatch duration: %huh %hum\n\n",
+//                    ptr->movie_rating ,ptr->movie_watch_duration[0],   ptr->movie_watch_duration[1]);
+// }

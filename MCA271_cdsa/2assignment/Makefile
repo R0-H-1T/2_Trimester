@@ -1,11 +1,22 @@
+CC = gcc
+
+# CFLAGS = -Wall -Wextra -pedantic -std=c99
+
+SOURCES = main.c cinema.c dlinkedlist.c 	
+
+HEADERS = cinema.h dlinkedlist.h 
+
+TARGET = main
+
 
 cinema:
-	gcc ./main.c ./cinema.c dlinkedlist.c -o main
+	$(CC) $(SOURCES) -o $(TARGET)
 
 run:
 	./main
 
 clean:
-	rm -rf ./main
+	$(RM) $(TARGET)
 
+.PHONY:all clean
 

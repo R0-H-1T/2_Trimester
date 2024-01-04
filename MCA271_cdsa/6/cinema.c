@@ -34,8 +34,6 @@ int hoares_partition(Movie *ptr, int left, int right) {
     // Movie pivot = *(ptr+right);
     Movie pivot = ptr[right];
     int high = right;
-    printf("\nRelease Year: %hu\nLeft and right: %d %d\n", pivot.movie_release_year, left, right);
-    // Movie pivot = *ptr[right];
 
     while (left < right) {
         while (ptr[left].movie_release_year <= pivot.movie_release_year && left < right) {
@@ -52,9 +50,8 @@ int hoares_partition(Movie *ptr, int left, int right) {
 }
 
 void quicksort(Movie *ptr, int left, int right) {
-    while (left < right) {
+    if (left < right) {
         int pivot = hoares_partition(ptr, left, right);
-        printf("\nPivot at now: %d", pivot);
         quicksort(ptr, left, pivot-1);
         quicksort(ptr, pivot+1, right);
     }

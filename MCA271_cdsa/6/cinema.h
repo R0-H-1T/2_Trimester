@@ -22,4 +22,7 @@ void quicksort(Movie *, int , int );
 void sortMovies(Movie *);
 
 
+void writeData(char *, Movie *);
+void readData(char *);
+
 #endif

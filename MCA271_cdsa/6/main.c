@@ -3,7 +3,6 @@
 #include<stdlib.h>
 #include<time.h>
 
-
 int main() {
     srand(time(0));
 
@@ -12,7 +11,10 @@ int main() {
     printMovie(m);
 
     sortMovies(m);
-    printMovie(m);
+    // printMovie(m);
+
+    writeData("output.dat", m);
+    readData("output.dat");
 
     free(m);
     return 0;

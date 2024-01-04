@@ -61,6 +61,47 @@ void sortMovies(Movie *ptr) {
     quicksort(ptr, 0, MOVIE_COUNT-1);
 }
 
+void readData(char *readfile) {
+    Movie m;
+
+    FILE *file = fopen(readfile, "r");
+    if (file == NULL) {
+        fprintf (stderr, "\nERROR: Failed to open file.");
+        exit(EXIT_FAILURE);
+    }
+    printf("\n\nReading from file: %s", readfile);
+    printf("\n\nMOVIE");    addPadding(MOVIE_SIZE-5);     printf("RATING\tRELEASE YEAR\n");
+    while (fread(&m, sizeof(Movie), 1, file) ){
+        printf("%s", m.movie_title);
+        addPadding(MOVIE_SIZE-strlen(m.movie_title));
+        printf("%.1f\t%hu\n", m.movie_rating, m.movie_release_year);
+    }
+}
+
+void writeData(char *outputFile, Movie *ptr) {
+    FILE *file = fopen(outputFile, "w");
+
+    if (file != NULL) {
+        for (int i=0; i<MOVIE_COUNT; i++) {
+            int result = fwrite(&ptr[i], sizeof(Movie), 1, file);
+            if (result == 0) {  
+                perror("fwrite");
+                fprintf(stderr,"%s",strerror(result));   
+                fclose(file);
+                exit(EXIT_FAILURE);
+            }
+        }
+        printf("\n\nSuccessfully written to file.");
+        fclose(file);
+    } else {
+        // perror("\nERROR: Failed to open the file.");
+        // fprintf(stderr,"%s",strerror(-1));
+        fclose(file);
+        perror("fopen");
+        exit(EXIT_FAILURE);
+    }
+}
+
 Movie* loadMovieFromFile() {
     int movie_counter = 0;
     Movie *m = (Movie*) malloc (sizeof(Movie) * MOVIE_COUNT);

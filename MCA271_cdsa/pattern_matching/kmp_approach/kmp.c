@@ -64,7 +64,7 @@ void kmp_search (char *pat, char *text) {
 
 int main () {
 
-    kmp_search ("onions", "ionionsionionionspl");    
+    kmp_search ("aabbd", "abbcaabbd");    
 
     return 0;
 }

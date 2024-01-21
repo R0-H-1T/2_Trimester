@@ -1,8 +1,54 @@
 #include<stdio.h>
-
+#include<stdbool.h>
 // directed matrix and weighted matrix is not taken into account.
 // use adjacency matric only when the edges between the vertices are more
 // else use list for sparse edges between vertices.
+
+
+// bfs and dfs of matrix is included ->
+
+
+// uses stack (Recursion)
+void dfs (int vertices, int graph[vertices][vertices], int start, bool visited[vertices]) {
+    printf ("%d", start);
+
+    visited[start] = true;
+
+    for (int i=0; i<vertices; i++) {
+        if (graph[start][i] == 1 && !visited[i]) {
+            dfs (vertices, graph, i, visited);
+        }
+    }
+}
+
+// uses queue
+void bfs(int vertices, int graph[vertices][vertices], int start) {
+    bool visited[vertices];
+    for (int i=0; i<vertices; i++) {
+        visited[i] = false;
+    }
+
+    int queue[vertices];
+    int front = -1, rear = -1;
+
+    // Enqueue the start vertex and mark it as visited
+    queue[++rear] = start;
+    visited[start] = true;
+
+    while (front != rear) {
+        // Dequeue a vertex and process it
+        int currentVertex = queue[++front];
+        printf("%d ", currentVertex);
+
+        // Enqueue all adjacent vertices of the dequeued vertex that have not been visited
+        for (int i = 0; i < vertices; ++i) {
+            if (graph[currentVertex][i] == 1 && !visited[i]) {
+                queue[++rear] = i;
+                visited[i] = true;
+            }
+        }
+    }
+}
 
 
 void initializeVertices (int vertices, int graph[vertices][vertices]) {

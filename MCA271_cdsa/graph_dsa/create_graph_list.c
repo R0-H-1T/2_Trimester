@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 struct node {
   int vertex;
@@ -13,6 +14,34 @@ struct Graph {
   int numVertices;
   struct node** adjLists;
 };
+
+
+void dfs_util (struct Graph *graph, int start_v, bool *visited) {
+  printf ("%d", start_v);
+
+  visited[start_v] = true;
+
+  struct Graph *node = graph->adjLists[start_v];
+  
+  while (node != NULL) {
+    int neighbour = node->vertex;
+    if (!visited[neighbour]) {
+      dfs_util (graph, neighbour, visited);
+    }
+    node = node->next;
+  }
+
+
+}
+
+void dfs (struct Graph *graph, int start_v) {
+  bool *visited = (bool*) malloc (sizeof(bool));
+
+  visited[start_v] = true;
+
+  dfs_util (graph, start_v, visited);
+
+}
 
 // Create a node
 struct node* createNode(int v) {

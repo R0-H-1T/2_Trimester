@@ -1,0 +1,28 @@
+{
+    "id": "73C079CF",
+    "path": "D:/christUNI/MCA_sem1/dev1/r_prog/r_project/demo1.R",
+    "project_path": "demo1.R",
+    "type": "r_source",
+    "hash": "3164840238",
+    "contents": "",
+    "dirty": false,
+    "created": 1700905386609.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "7,20",
+        "scrollLine": "0",
+        "notebook_format": "html_document"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1700994605,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1700994605678,
+    "read_only": false,
+    "read_only_alternatives": []
+}

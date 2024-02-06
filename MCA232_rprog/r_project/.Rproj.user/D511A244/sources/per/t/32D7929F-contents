@@ -1,0 +1,171 @@
+---
+title: "Inferential Statistics"
+author: ""
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE,
+    message = FALSE,
+    warning = FALSE
+)
+```
+
+```{r, results='hide', warning=FALSE, message=FALSE, attr.source='.numberLines'}
+library(ggplot2)
+library(readxl)
+library(tidyverse)
+```
+
+```{r, results='hide', warning=FALSE, message=FALSE, attr.source='.numberLines'}
+df <- read_xlsx(
+    path = "17-Influence of Webinars and Seminars on Students’ Academic Performance.xlsx"
+)
+```
+
+------------------------------------------------------------------------
+
+### **Hypotheses:**
+
+-   **Null Hypothesis (H0):** The mean perceptions of the impact of webinar and seminar attendance on academic performance are the same among participants.
+
+-   **Alternative Hypothesis (H1):** There is a significant difference in the mean perceptions of the impact of webinar and seminar attendance on academic performance among participants.
+
+> Type of T-Test: This scenario corresponds to an Independent Two-Sample T-Test.
+
+```{r, results='hide', warning=FALSE, message=FALSE, attr.source='.numberLines'}
+graduates <- df[
+    df$`What is your current level of education?`
+    %in%
+    c(
+        "Undergraduate (Bachelor's degree)",
+        "Graduate (Master's or higher)"
+    ),
+]
+
+graduates$Attendance <- as.numeric(
+    factor(
+        x = graduates$`Do you attend webinars and seminars related to your study?`,
+        levels = c(
+            "Strongly Disagree",
+            "Disagree",
+            "Neutral",
+            "Agree",
+            "Strongly Agree"
+        )
+    )
+)
+
+t_test_result <- t.test(
+    formula = Attendance ~ `What is your current level of education?`,
+    var.eqaul = TRUE,
+    data = graduates
+)
+```
+
+### **Conclusion:**
+
+-   **p-value (0.08349) \> 0.05:** This suggests that there is not enough evidence to reject the null hypothesis.
+
+-   **Confidence Interval:** At 95% confidence interval, there is no significant difference in the mean perceptions of attendance between Graduate and Undergraduate participants.
+
+------------------------------------------------------------------------
+
+### **Hypotheses:**
+
+-   **Null Hypothesis (H0):** The means of responses to the accessibility of webinars are equal across different educational levels.
+
+-   **Alternative Hypothesis (H1):** At least one group mean of responses to the accessibility of webinars is different from the others.
+
+> Type of ANOVA Test: This scenario corresponds to a one-way ANOVA.
+
+```{r, results='hide', warning=FALSE, message=FALSE, attr.source='.numberLines'}
+graduates <- df[
+    df$`What is your current level of education?`
+    %in%
+    c(
+        "High School",
+        "Undergraduate (Bachelor's degree)",
+        "Graduate (Master's or higher)",
+        "Others (please specify)"
+    ),
+]
+
+
+graduates$Accessibility <- as.numeric(
+    factor(
+        x = graduates$`Preferences [Webinars are more accessible to a wider audience compared to seminars.]`,
+        levels = c(
+            "Strongly Disagree",
+            "Disagree",
+            "Neutral",
+            "Agree",
+            "Strongly Agree"
+        )
+    )
+)
+
+t_test_result <- aov(
+    formula = Accessibility ~ `What is your current level of education?`,
+    data = graduates,
+)
+
+summary(graduates)
+```
+
+
+
+## One Way Anova Test
+One-way ANOVA: One-way When there is a single categorical independent variable (also known as a factor) and a single continuous dependent variable, an ANOVA is employed. It seeks to ascertain whether there are any notable variations in the dependent variable’s means across the levels of the independent variable.
+ 
+Two-way ANOVA: When there are two categorical independent variables (factors) and one continuous dependent variable, two-way ANOVA is used as an extension of one-way ANOVA. You can evaluate both the direct impacts of each independent variable and how they interact with one another on the dependent variable.
+-----------------------------------------
+
+
+One-way ANOVA test is performed using mtcars dataset which comes preinstalled with dplyr package between disp attribute, a continuous attribute and gear attribute, a categorical attribute.here are some steps.
+
+Setup Null Hypothesis and Alternate Hypothesis
+H0 = mu = mu01 = mu02(There is no differencebetween average displacement for different gears)
+H1 = Not all means are equal.
+
+```{r}
+mtcars_aov <- aov(mtcars$disp~factor(mtcars$gear))
+summary(mtcars_aov)
+```
+Df: The model’s degrees of freedom.
+Sum Sq: The sums of squares, which represent the variability that the model is able to account for.
+Mean Sq: The variance explained by each component is represented by the mean squares.
+F-value: It is the measure used to compare the mean squares both within and between groups.
+Pr(>F): The F-statistics p-value, which denotes the factors’ statistical significance.
+Residuals: Relative deviations from the group mean, are often known as residuals and their summary statistics.
+
+
+## Performing two annova test
+A two-way ANOVA test is performed using mtcars dataset which comes preinstalled with dplyr package between disp attribute, a continuous attribute and gear attribute, a categorical attribute, am attribute, a categorical attribute.
+
+Setup Null Hypothesis and Alternate Hypothesis
+H0 = mu0 = mu01 = mu02(There is no difference between average displacement for different gear)
+H1 = Not all means are equal
+
+```{r}
+install.packages("dplyr")
+ 
+# Loading the package
+library(dplyr)
+ 
+# Variance in mean within group and between group
+histogram(mtcars$disp~mtcars$gear, subset = (mtcars$am == 0),
+        xlab = "gear", ylab = "disp", main = "Automatic")
+histogram(mtcars$disp~mtcars$gear, subset = (mtcars$am == 1),
+        xlab = "gear", ylab = "disp", main = "Manual")
+
+
+# anova test
+mtcars_aov2 <- aov(mtcars$disp~factor(mtcars$gear) *
+                            factor(mtcars$am))
+summary(mtcars_aov2)
+
+```
+

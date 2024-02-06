@@ -1,0 +1,5 @@
+"0",""
+"0","library(""readxl"")"
+"0","web_sem_data <- read_excel (""webinars_and_seminars.xlsx"")"
+"2","New names:"
+"0","head(web_sem_data, 3)"

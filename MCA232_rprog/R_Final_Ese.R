@@ -1,0 +1,150 @@
+library(reshape2)
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(GGally)
+
+us_cereal <- read.csv("./UScereal1.csv")
+
+# print(us_cereal$protein)
+# Check for missing/NA values
+missing_values <- sapply(us_cereal, function(x) sum(is.na(x)))
+ print(missing_values)
+
+# Replacing the missing values.
+us_cereal$protein <- ifelse(is.na(us_cereal$protein), mean(us_cereal$protein, na.rm = TRUE), us_cereal$protein)
+print(us_cereal$protein)
+
+# check the data set for missing/NA values
+
+View(us_cereal)
+str(us_cereal)
+dim(us_cereal)
+summary (us_cereal)
+
+
+# distribution of Protein
+hist (
+  us_cereal$sodium,
+  col = "steelblue",
+  main = "Histogram",
+  xlab = "Protein",
+  ylab = "Frequency"
+)
+
+# Finding the maximum protein value of each manufacturer
+max_protein_by_manufacturer <- tapply(us_cereal$protein, us_cereal$mfr, max)
+max_protein_by_manufacturer
+
+ax_protein_by_manufacturer <- aggregate(protein ~ mfr, data = us_cereal, FUN = max)
+print(max_protein_by_manufacturer)
+
+mfr <- us_cereal %>% group_by(mfr)
+mfr
+str (us_cereal)
+head(mfr)
+
+
+
+
+
+# analyze the spread of the data set for the manufacturer to check how each one has given preference to fibre
+ggplot (
+  us_cereal, 
+  aes (x = mfr, y = fibre)
+  ) +
+  geom_boxplot() +
+  labs(title = "Spread of Fiber Values by Manufacturer",
+       x = "Manufacturer",
+       y = "Fiber") +
+  theme_minimal()
+
+
+
+
+# create a plot to find the outlier on calories for each shelf
+ggplot (
+  us_cereal, 
+  aes (x = as.factor(shelf), y = calories)
+  ) +
+  geom_boxplot() +
+  labs(title = "Outliers in Calories for Each Shelf",
+       x = "Shelf",
+       y = "Calories") +
+  theme_minimal()
+
+
+
+
+# create a plot to explore all the numeric variables
+numeric_vars <- us_cereal[, sapply(us_cereal, is.numeric)]
+pairs(numeric_vars)
+
+ggpairs(us_cereal, columns =  c("calories", "protein", "fat", "sodium", "fibre", "carbo", "sugars", "potassium"))
+?ggpairs
+
+
+
+# Identify the top four mean variables and create the data frame 'GreaterMeanFour'
+?sapply
+mean_values <- colMeans(us_cereal[sapply(us_cereal, is.numeric)])
+
+top_four_variables <- names(sort(mean_values, decreasing = TRUE)[1:4])
+
+GreaterMeanFour <- us_cereal[, top_four_variables]
+
+GreaterMeanFour
+
+
+
+
+
+# The strength of the relationship of 'GreaterMeanFour' relationship
+correlation_matrix <- cor(GreaterMeanFour)
+melted_corr <- melt(correlation_matrix)
+
+# Create the heatmap
+ggplot(melted_corr, aes(Var1, Var2, fill = value)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Correlation Heatmap of 'GreaterMeanFour'")
+
+
+
+# Simple linear regression model using strongly positively correlated variables 
+# and plot it
+
+sodium = us_cereal$sodium
+calories = us_cereal$calories
+regression_model <- lm(sodium ~ calories, data = GreaterMeanFour)
+
+ggplot(GreaterMeanFour, aes(x = sodium, y = calories)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  labs(title = "Simple Linear Regression",
+       x = sodium,
+       y = calories)
+
+
+# ----------------------LAST -------------
+
+predictions_before <- predict(regression_model, newdata = data.frame(calories = 150))
+
+# Identify and remove outliers
+outliers <- which(model$residuals > quantile(model$residuals, 0.975) | model$residuals < quantile(model$residuals, 0.025))
+us_cereal_no_outliers <- us_cereal[-outliers, ]
+
+# Create a new model without outliers
+model_no_outliers <- lm(protein ~ calories, data = us_cereal_no_outliers)
+
+# Predictions after removing outliers
+predictions_after <- predict(model_no_outliers, newdata = data.frame(calories = 150))
+
+# Show predictions
+print(paste("Prediction Before Removing Outliers:", predictions_before))
+print(paste("Prediction After Removing Outliers:", predictions_after))
+
+
+

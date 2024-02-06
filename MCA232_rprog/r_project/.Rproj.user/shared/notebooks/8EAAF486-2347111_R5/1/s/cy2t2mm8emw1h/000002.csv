@@ -1,0 +1,52 @@
+"0","```r
+# load the required libraries
+# ggplot is for plotting
+# dplyr is for easy data frame manipulation
+# readxl for working with Microsoft Excel file
+library(ggplot2)
+library(dplyr)
+library(readxl)
+
+# read the *.xlsx file that has the survey responses
+dataset <- read_xlsx(
+    path = \"/home/bivas/dev/mca/2/asr/assignment/17-Influence of Webinars and Seminars on Students’ Academic Performance.xlsx\"
+)
+```"
+"1","New names:
+"
+"0","```r
+demographic_dataset = select(
+    dataset,
+    \"What is your current level of education?\",
+    \"Do you attend webinars and seminars related to your study?\",
+    \"Have you participated in both seminars and webinars for educational purposes?\",
+    \"Do you use online learning resources, such as webinars, in your education?\",
+    \"How many hours per week do you spend on online learning activities, including webinars and seminars?\"
+)
+
+# drop NA values
+demographic_dataset <- na.omit(demographic_dataset)
+
+summary(demographic_dataset)
+```"
+"1"," What is your current level of education?
+ Length:123                              
+ Class :character                        
+ Mode  :character                        
+ Do you attend webinars and seminars related to your study?
+ Length:123                                                
+ Class :character                                          
+ Mode  :character                                          
+ Have you participated in both seminars and webinars for educational purposes?
+ Length:123                                                                   
+ Class :character                                                             
+ Mode  :character                                                             
+ Do you use online learning resources, such as webinars, in your education?
+ Length:123                                                                
+ Class :character                                                          
+ Mode  :character                                                          
+ How many hours per week do you spend on online learning activities, including webinars and seminars?
+ Length:123                                                                                          
+ Class :character                                                                                    
+ Mode  :character                                                                                    
+"

@@ -1,0 +1,147 @@
+library("readxl")
+library("dplyr")
+library("ggplot2")
+
+
+## Is there a statistically significant relationship between the education level 
+# of students and their preference for webinars over seminars?
+web_sem_data <- read_excel ("webinars_and_seminars.xlsx")
+
+summary(web_sem_data)
+str(web_sem_data)
+View(web_sem_data)
+head(web_sem_data, 3)
+
+
+first_test <- web_sem_data %>%
+  rename(
+         education_level = `What is your current level of education?`,
+         webinar_preference = `Perception of Webinars & Seminars [Webinars are better at accommodating students' busy schedules compared to seminars.]`
+    )
+
+
+first_test$education_level <- factor(
+  first_test$education_level, 
+  levels = c(
+    "High School", 
+    "Graduate (Master's or higher)", 
+    "Undergraduate (Bachelor's degree)", 
+    "Others (please specify)"
+    )
+  )
+
+
+first_test$webinar_preference <- as.integer(
+  factor(
+    first_test$webinar_preference,
+    levels = c(
+      "Strongly disagree", 
+      "Disagree", 
+      "Neutral", 
+      "Agree", 
+      "Strongly agree"
+    )
+  )
+)
+ 
+
+ 
+
+model <- lm(webinar_preference ~ education_level, data = first_test)
+# Summarize the model
+summary(model)
+
+
+first_test <- data.frame(
+  education_level = c("High School", "Graduate (Master's or higher)", "Undergraduate", "Others"),
+  webinar_preference = c("Neutral", "Agree", "Disagree", "Neutral")
+)
+
+
+
+
+# Create a plot
+ggplot(first_test, aes(x = education_level, y = webinar_preference)) +
+  geom_point(aes(color = webinar_preference), size = 3) +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  geom_abline(h = 3, color = "blue") +  # Add a horizontal line at y = 3
+  labs(title = "Regression Plot: Education Level vs. Webinar Preference",
+       x = "Education Level",
+       y = "Webinar Preference")
+
+
+### Interpretation:
+#Hypotheses:
+#  Null Hypothesis (H0):
+  
+#  There is no significant relationship between education level and webinar preference.
+#Alternative Hypothesis (H1):
+  
+#  There is a significant relationship between education level and webinar preference.
+#p-value of 0.1309 is higher than the typical level of significance (e.g., 0.05), which results to reject the null hypothesis at the chosen significance level.
+#In the context of your regression analysis, a p-value above 0.05 suggests that there is no strong statistical evidence to conclude that education level has a significant impact on webinar preference.
+
+# ------------------------------------------------------------------------------------------------------------------------------
+
+
+
+## Is there a significant difference in the mean hours spent per week on online 
+# learning activities between graduate and undergraduate students?"
+
+second_test <- web_sem_data %>%
+  rename(
+    education_level = `What is your current level of education?`,
+    hours_spent = `How many hours per week do you spend on online learning activities, including webinars and seminars?`
+  )
+
+
+second_test$hours_spent <- as.integer(
+  factor(
+    second_test$hours_spent,
+    levels = c(
+      "Less than 1 hour", 
+      "1-5 hours", 
+      "6-10 hours", 
+      "More than 15 hours"
+    )
+  )
+)
+
+head(second_test$hours_spent, 9)
+
+
+second_test <- data.frame(
+  hours_per_week = c("Less than 1 hour", "1-5 hours", "6-10 hours", "More than 15 hours"),
+  education_level = c("Graduate", "Undergraduate")
+)
+
+
+
+
+second_test$hours_per_week_numeric <- 
+    ifelse(second_test$hours_per_week == "Less than 1 hour", 0.5,
+           ifelse(second_test$hours_per_week == "1-5 hours", 3,
+                  ifelse(second_test$hours_per_week == "6-10 hours", 8,
+                         ifelse(second_test$hours_per_week == "More than 15 hours", 17.5, NA))))
+
+
+t_test_result <- t.test(hours_per_week_numeric ~ education_level, data = second_test)
+  
+print(t_test_result)
+
+
+### Null Hypothesis (H0):
+#The null hypothesis typically assumes that there is no significant difference between the mean hours spent per week for "Graduate" and "Undergraduate" groups.
+
+### Alternative Hypothesis (H1):
+#The alternative hypothesis suggests that there is a significant difference between the mean hours spent per week for "Graduate" and "Undergraduate" groups.
+
+#Conclusion: Failed to reject the null hypothesis.
+#Inference: There is insufficient evidence to suggest a significant difference in the mean hours spent per week between "Graduate" and "Undergraduate" groups.
+
+
+
+
+
+
+

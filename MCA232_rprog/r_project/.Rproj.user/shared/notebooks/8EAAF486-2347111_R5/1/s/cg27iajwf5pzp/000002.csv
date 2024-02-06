@@ -1,0 +1,14 @@
+"0","```r
+Participation <- factor(demographic_dataset$`Have you participated in both seminars and webinars for educational purposes?`)
+
+ggplot(
+    data = demographic_dataset,
+    aes(
+        x = Participation,
+        y = Participation,
+        fill = Participation)
+    ) +
+    geom_bar(width = .5, position = \"fill\", stat = \"identity\") +
+    labs(title = \"Participation in Webinars & Seminars\", x = \"\", y = \"\") +
+    coord_polar(\"y\", start = 0)
+```"

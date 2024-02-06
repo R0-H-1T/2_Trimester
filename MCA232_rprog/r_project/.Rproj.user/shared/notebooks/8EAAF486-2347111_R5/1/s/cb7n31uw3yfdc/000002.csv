@@ -1,0 +1,12 @@
+"0","```r
+Usage <- factor(
+    demographic_dataset$`Do you use online learning resources, such as webinars, in your education?`
+)
+
+ggplot(
+    data = demographic_dataset,
+    aes(x = \"\", fill = Usage)) +
+    geom_bar(width = 1, position = \"fill\") +
+    coord_polar(theta = \"y\") +
+    labs(title = \"Use of Online Learning Resources\", x=\"\")
+```"

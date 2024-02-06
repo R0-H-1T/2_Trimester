@@ -1,0 +1,14 @@
+"0","```r
+Attendace <- demographic_dataset$`Do you attend webinars and seminars related to your study?`
+
+ggplot(
+    demographic_dataset,
+    aes(
+        x = Attendace,
+        y = Attendace,
+        fill = Attendace,)
+    ) +
+    geom_bar(width = .5, stat = \"identity\") +
+    labs(title = \"Education Level Distribution\", x = \"\", y = \"\") +
+    coord_polar(\"y\", start = 0)
+```"

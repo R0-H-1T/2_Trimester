@@ -1,0 +1,196 @@
+---
+title: "Exploratory Data Analysis"
+author: ""
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	tidy = FALSE,
+	tidy.opts = list(width.cutoff = 88)
+)
+knitr::opts_chunk$set(tidy.opts = list(width.cutoff = 128), tidy = FALSE)
+```
+
+```{r, results='hide', warning=FALSE, message=FALSE, attr.source='.numberLines'}
+library(ggplot2)
+library(readxl)
+library(dplyr)
+```
+
+```{r, results='hide', warning=FALSE, message=FALSE, attr.source='.numberLines'}
+event <- read_xlsx(
+    path = "17-Influence of Webinars and Seminars on Students’ Academic Performance.xlsx"
+)
+
+event <- select(
+    event,
+    "What is your current level of education?",
+    "Technology & Interaction [Interactive features like polls and quizzes enhance the value of webinars for students.]",
+    "Technology & Interaction [Real-time feedback in seminars is more effective than in webinars.]",
+    "Technology & Interaction [The ability to review content later is a significant advantage of webinars.]",
+    "Technology & Interaction [Webinars offer face-to-face discussions with instructors.]",
+    "Technology & Interaction [Webinars provide ample opportunities for students to ask questions.]"
+)
+
+event <- na.omit(event)
+```
+
+```{r, results='hide', warning=FALSE, message=FALSE, attr.source='.numberLines', fig.dpi=320, fig.width=8, fig.height=8}
+ggplot(
+    data = event,
+    aes(
+        x = factor(`Technology & Interaction [Interactive features like polls and quizzes enhance the value of webinars for students.]`),
+        fill = factor(`Technology & Interaction [Interactive features like polls and quizzes enhance the value of webinars for students.]`)
+    )
+) + geom_bar(
+    position = "dodge",
+    width = 0.75
+) + labs(
+    title = "Distribution of Likert Scale for Interactive Features",
+    x = "Likert Response",
+    y = "Count",
+    fill = "Likert Response"
+) + theme_minimal(
+    
+) + scale_fill_brewer(
+    palette = "PiYG"
+)
+
+```
+
+> Likert Scale Distribution for Interactive Features (Bar Chart)
+
+- Insight: The above bar chart shows the distribution of Likert scale responses for the perception of interactive features.
+- Analysis: We can analyze the distribution of responses across different Likert categories, identify the dominant perception as "Agree", and understand the overall sentiment of likeliness towards interactive features.
+
+```{r, results='hide', warning=FALSE, message=FALSE, attr.source='.numberLines', fig.dpi=320, fig.width=8, fig.height=8}
+ggplot(
+    data = event,
+    aes(
+    x = factor(`Technology & Interaction [Real-time feedback in seminars is more effective than in webinars.]`),
+    fill = factor(`Technology & Interaction [Real-time feedback in seminars is more effective than in webinars.]`)
+    )
+) + geom_bar(
+    position = "dodge", 
+    width = 0.7
+) + labs(
+    title = "Comparison of Real-time Feedback in Seminars vs. Webinars",
+    x = "Feedback Comparison",
+    y = "Count",
+    fill = "Feedback Comparison"
+) + theme_minimal(
+    
+) + scale_fill_brewer(
+    palette = "PiYG"
+)
+```
+> Comparison of Real-time Feedback in Seminars vs. Webinars (Bar Chart)
+
+- Insight: The above bar chart compares the perceptions of real-time feedback effectiveness in seminars and webinars.
+- Analysis: We can analyze the distribution of responses for each category, compare the effectiveness perceptions between seminars and webinars, and identify the trend as the sample agrees that seminar's real-time feedback is more valuable.
+
+```{r, fig.dpi=320, fig.width=12, fig.height=12}
+ggplot(
+    data = event,
+    aes(
+        x = `Technology & Interaction [The ability to review content later is a significant advantage of webinars.]`,
+        fill = `Technology & Interaction [The ability to review content later is a significant advantage of webinars.]`
+    )
+) + geom_bar(
+    position = "dodge",
+    width = 0.7
+) + facet_wrap(
+    ~`What is your current level of education?`,
+    scales = "free"
+) + labs(
+    y = "Response Count",
+    x = "",
+    fill = "Response Likert Scale",
+    title = "Ability to review content later in Webinars is advantageous"
+) + theme_minimal(
+
+) + theme(
+    legend.position = "bottom"
+) + scale_fill_brewer(
+    palette = "PiYG"
+)
+```
+> Advantage of Reviewing Content Later in Webinars (Bar Chart)
+
+- Insight: The above bar chart illustrates the perceived advantages of reviewing content later in webinars.
+- Analysis: We can analyze the distribution of responses for each advantage. Postgraduates and Undergraduates mostly agree that the ability to retrieve online content later on is an advantage of webinar. Highschoolers are mostly neutral in this scenario.
+
+```{r, results='hide', warning=FALSE, message=FALSE, attr.source='.numberLines', fig.dpi=320, fig.width=8, fig.height=8}
+ggplot(
+    data = event,
+    aes(
+        x = factor(`Technology & Interaction [Webinars offer face-to-face discussions with instructors.]`),
+        fill = factor(`Technology & Interaction [Webinars offer face-to-face discussions with instructors.]`)
+    )
+) + geom_bar(
+    position = "dodge",
+    width = 0.7
+) + labs(
+    title = "Perception of Face-to-Face Discussions in Webinars",
+    x = "Perception",
+    y = "Count",
+    fill = "Perception"
+) + theme_minimal(
+    
+) + scale_fill_brewer(
+    palette = "PiYG"
+)
+
+```
+> Perception of Face-to-Face Discussions in Webinars (Bar Chart)
+
+- Insight: The above bar chart shows the distribution of perceptions regarding face-to-face discussions in webinars.
+- Analysis: We can analyze the distribution of responses across different perceptions, identifying the prevailing sentiment as "Agree", and understand how participants view the possibility of face-to-face discussions in a webinar setting.
+
+```{r, results='hide', warning=FALSE, message=FALSE, attr.source='.numberLines', fig.dpi=320, fig.width=12, fig.height=12}
+ggplot(
+    data = event,
+    aes(
+        x = factor(`Technology & Interaction [Webinars provide ample opportunities for students to ask questions.]`),
+        fill = factor(`Technology & Interaction [Webinars provide ample opportunities for students to ask questions.]`)
+    )
+) + geom_bar(
+    position = "dodge",
+    width = 0.7
+) + labs(
+    title = "Perception of Opportunities for Asking Questions in Webinars",
+    x = "Perception",
+    y = "Count",
+    fill = "Perception"
+) + facet_wrap(
+    ~`What is your current level of education?`,
+    scales = "free"
+) + theme_minimal(
+    
+) + theme(
+    legend.position = "bottom"
+) + scale_fill_brewer(
+    palette = "PiYG"
+) 
+```
+> Opportunities for Asking Questions in Webinars (Bar Chart)
+
+- Insight: The above bar chart visualizes the distribution of responses regarding opportunities for asking questions in webinars.
+- Analysis: We can analyze the distribution of responses for each category. Highschoolers do not agree to the statement that "Webinars provide ample opportunities for asking questions", whereas the undergraduates are of the opposite opinions, followed by the postgraduates.
+
+> Conclusions:
+
+- Participants generally prefer the availability of online polls and quizzes in webinars.
+- Perceptions vary between seminars and webinars, with participatns preferring the real-time feedback of seminars.
+- The most valued advantage of webinars is the ability to view the content afterwards, suggesting that participants highly appreciate this feature.
+- Participants often get the chance for face-to-face interaction in webinars.
+- High school students disagree with the assertion that "Webinars offer ample opportunities for asking questions," while undergraduates hold contrasting opinions, followed by postgraduates who also share a differing perspective.

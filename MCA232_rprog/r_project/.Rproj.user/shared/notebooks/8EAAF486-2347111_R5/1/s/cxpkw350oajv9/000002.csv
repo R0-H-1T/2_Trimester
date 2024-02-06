@@ -1,0 +1,14 @@
+"0","```r
+Education <- demographic_dataset$`What is your current level of education?`
+
+ggplot(
+    demographic_dataset,
+    aes(
+        x = Education,
+        y = Education,
+        fill = Education)
+    ) +
+    geom_bar(width = .5, stat = \"identity\") +
+    labs(title = \"Education Level Distribution\", x = \"\", y = \"\") +
+    coord_polar(\"y\", start = 0)
+```"

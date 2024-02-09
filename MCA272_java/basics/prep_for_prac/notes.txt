@@ -1,0 +1,10 @@
+Abstract classes in java
+Can create actual concrete methods in abstract classes
+
+Every method in an interface is assumed to be abstact.
+You can implement multiple interface, also u can implement an interface and extedn a class
+
+Ever data member in interfaces is static and final, thats youll have to instantiate the data member
+at the time of decleration - public int age = 34;
+But in abstract class tells that it needs to have these many data members but its not going
+to tell what it is. Ever object will have its own value for them.

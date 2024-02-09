@@ -1,0 +1,22 @@
+Java functional interefaces -> 
+Annotation @FunctionalInterface
+Interface with exactly one abstract method is known as functional interface
+
+
+interface Printable {
+    void printable();
+}
+
+public class Lambdas {
+
+    main() {
+        Printable lambdaprintable = (s) -> System.out.println("Meow" + s);
+        PrintThing(lambdaprintable);
+
+    }
+
+    static void PrintThing (Printable thing) {
+        thing.print("!");        
+    }
+}
+

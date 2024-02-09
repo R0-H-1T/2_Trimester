@@ -1,0 +1,14 @@
+Difference between Abstract classes and interfaces in jave
+
+
+
+
+Any fields that is declare in the interface is static and final 
+So every class that is implementing this interface will have this fields.
+You will need to instantiate it with some value at the time of decleration
+THATS WHY DON'T HAVE FIELDS IN INTERFACES LIKE:
+int age = 1;
+
+You use abstract class in such cases
+
+

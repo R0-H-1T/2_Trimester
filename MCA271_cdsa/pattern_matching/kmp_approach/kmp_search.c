@@ -1,6 +1,7 @@
 #include"kmp_search.h"
 #include<stdlib.h>
 #include<stdio.h>
+#include<string.h>
 
 
 int str_length (char *string) {
@@ -56,6 +57,52 @@ void lsp_array_generator (char *pat, int *lps, int M) {
     //     }
     // }
 
+}
+
+void compute_lsp (int *arr, char *pattern) {
+    int n = strlen(pattern);
+    int j=0;
+    arr[0] = 0;
+    int i=1;
+    while (i < n) {
+        if (pattern[i] == pattern[j]) {
+            arr[i] = j+1;
+            i++; j++;
+        } else {
+            if (j != 0)
+                j = arr[j-1];
+            else{
+                lsp[i] = 0;
+                i++;
+            }
+        }
+    }
+}
+
+
+void kmp_search (char *pattern, char *text) {
+    int n = strlen(pattern);
+    int m = strlen(text);
+
+    int lsp[n];
+    compute_lsp(lsp);
+    
+    int i=0, j=0;
+    while (i < m) {
+        if (text[i] == pattern[j]) {
+            i++;
+            j++;
+        } else {
+            if (j != 0) {
+                j = lsp[j-1];
+            }else {
+                i++;
+            }
+        }
+        if (j == n)
+            printf (i-j);
+            j = lsp[j-1];
+    }
 }
 
 

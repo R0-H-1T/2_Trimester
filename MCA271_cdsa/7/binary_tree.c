@@ -16,8 +16,8 @@ Node* createLevelOrderTree (int *arr, Node *root, int i, int n) {
     if (i < n) {
         root = getNode (arr[i]);
 
-        root->left = createLevelOrderTree (arr, root->left, 2*i+1, n);
-        root->right = createLevelOrderTree (arr, root->right, 2*i+2, n);
+        root->left = createLevelOrderTree (arr,  root, 2*i+1, n);
+        root->right = createLevelOrderTree (arr, root, 2*i+2, n);
     }
     return root;
 }

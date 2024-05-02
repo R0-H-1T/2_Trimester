@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.ejs": "html",
+        "linkedlist.h": "c",
+        "stdbool.h": "c",
+        "arr_stack.h": "c"
+    }
+}

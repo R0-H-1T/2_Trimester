@@ -1,0 +1,39 @@
+TODO
+
+Fix the trailing new line after, like this --->
+CINEMA #1 --------
+Movie 1
+
+Movie Name:
+
+
+create cinemas such as hollywood, bollywoord, animation, cartoon
+
+can perform operation such as
+    - difference between the box offices of the cinemas
+    - sort the matrix based on the ratings, profits, 
+    - create average, median, mode of each cinema 
+
+
+1. You can create mean of the 2 matrices
+    by getting the sum of the two matrices = mean = su of.no of elen / total elems
+    
+2. Subtraction of the two matrices to get the comparision, preferably the rating 
+
+3. Put an element at a position.
+
+4. We can find the percentage of a particular field of the matrix - Range, mean
+
+
+
+Calculate the percentage difference between the two matrices, 
+which can be an indicator of how much more or less one set of earnings is compared to the other.
+The formula is (Matrix 1 - Matrix 2) / ((Matrix 1 + Matrix 2) / 2) * 100.
+
+percentage change in earnings between two matrices: 
+(Matrix 1 - Matrix 2) / Matrix 2 * 100
+
+.
+
+
+TODO

@@ -1,0 +1,27 @@
+
+Welcome to cinema
+MENU
+#1 Scroll movies in the list.
+#2 Add a movie.
+#3 Get count of all movies in the list.
+#4 Remove a movie from a list.
+#5 
+#5 Exit
+
+
+
+use malloc -> save it in the structure -> return the address
+movie count -> how to find that?
+
+OPERATIONS OF A LINKED LIST:
+traversal -> forward, backward
+insertion -> front, end, pos
+deletion -> front, end, pos
+
+
+
+#1 work with predifined movie list?  :  create your own list?
+    #2 display in ascending order / descending order ? 
+        - Only Movie titles?
+    #3 add movie at first, last, at pos
+    #4 del movie 

@@ -1,0 +1,13 @@
+partition algorithm - 2 approaches
+
+
+take 2 pointers  - left and right
+consider the last element of the array to be the pivot
+
+move the left pointer towards the end of array until an element greater than the pivot is encountered.
+move the right pointer towards start  of the array until an element smaller than the pivot is encountered.
+
+once found, swap the elements.
+
+-----------------------------------------------------------------
+

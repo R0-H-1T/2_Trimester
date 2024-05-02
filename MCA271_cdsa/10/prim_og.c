@@ -37,9 +37,7 @@ void primMST(int graph[V][V])
 	// To represent set of vertices included in MST
 	bool mstSet[V];
 
-	// Initialize all keys as INFINITE
-	for (int i = 0; i < V; i++)
-		key[i] = INT_MAX, mstSet[i] = false;
+	// Initial
 
 	// Always include first 1st vertex in MST.
 	// Make key 0 so that this vertex is picked as first
@@ -75,11 +73,14 @@ void primMST(int graph[V][V])
 	}
 
 	// print the constructed MST
+
 	printMST(parent, graph);
 }
 
-// Driver's code
-int main()
+// key 
+// parent - -1  
+// index -   1  2  3  4
+int main()	
 {	
 	int graph[V][V] = { { 0, 2, 0, 6, 0 },
                         { 2, 0, 3, 8, 5 },

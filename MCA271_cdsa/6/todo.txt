@@ -1,0 +1,10 @@
+
+
+
+read file -> create array of str
+create a random generator function
+create an array of cinema strucutures
+write it to a file
+read the file 
+sort the array of structures
+write it into file
